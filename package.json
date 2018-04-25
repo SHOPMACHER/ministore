@@ -1,0 +1,32 @@
+{
+  "name": "ministore",
+  "version": "1.0.0",
+  "description": "",
+  "main": "lib/index.js",
+  "scripts": {
+    "start": "babel-node src/index",
+    "test": "jest",
+    "coverage": "jest --coverage"
+  },
+  "jest": {
+    "globals": {
+      "NODE_ENV": "test"
+    },
+    "collectCoverageFrom": [
+      "src/index.js"
+    ],
+    "coverageReporters": [
+      "html"
+    ]
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-jest": "^22.4.3",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-flow": "^6.23.0",
+    "jest": "^22.4.3"
+  }
+}
