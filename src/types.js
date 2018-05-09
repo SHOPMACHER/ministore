@@ -1,5 +1,6 @@
 export type TStore = {
     register: Function<void>,
+    unregister: Function<void>,
     dispatch: Function<void>
 };
 
