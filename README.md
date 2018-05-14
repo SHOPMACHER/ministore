@@ -1,4 +1,5 @@
-#ministore [![Build Status](https://travis-ci.org/SHOPMACHER/ministore.svg?branch=master)](https://travis-ci.org/SHOPMACHER/ministore) 
+# ministore [![Build Status](https://travis-ci.org/SHOPMACHER/ministore.svg?branch=master)](https://travis-ci.org/SHOPMACHER/ministore) 
+
 ministore is an async dispatch store.
 
 ## Table of Contents
