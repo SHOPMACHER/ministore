@@ -3,7 +3,7 @@ node_js:
 - '6'
 - '10'
 before_script:
-  - npm install -g cross-env webpack webpack-cli
+  - npm install -g cross-env webpack-cli
 cache:
   directories:
   - node_modules
