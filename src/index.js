@@ -5,9 +5,23 @@ import { actionErrors, listenerErrors } from './errors';
 
 const has = Object.prototype.hasOwnProperty;
 
+/**
+ * Represents the store with the function to register, unregister and dispatch the actions
+ *
+ * @returns {{register: function(string, TListener): boolean, unregister: function(string): boolean, dispatch: function(TAction): *}}
+ */
 function createStore(): TStore {
     const store = Object.create(null);
 
+    /**
+     * Executes handler promises
+     *
+     * @param {Array} listener
+     * @param {Object} payload
+     * @param {number} counter
+     * @returns {*}
+     * @private
+     */
     function _execute(listener: Array, payload: Object = {}, counter: number = 0) {
         if (listener.length === counter) {
             return Promise.resolve();
@@ -18,6 +32,13 @@ function createStore(): TStore {
         }).catch(() => _execute(listener, payload, counter + 1));
     }
 
+    /**
+     * Registers the action
+     *
+     * @param {string} actionType
+     * @param {Object} listener
+     * @returns {boolean}
+     */
     const register = (actionType: string, listener: TListener) => {
         if (typeof actionType !== 'string') {
             throw new TypeError(actionErrors.NOT_STRING);
@@ -58,6 +79,12 @@ function createStore(): TStore {
         return true;
     };
 
+    /**
+     * Dispatches the action
+     *
+     * @param {Object} action
+     * @returns {*}
+     */
     const dispatch = (action: TAction) => {
         if (typeof action !== 'object') {
             throw new TypeError(actionErrors.NOT_OBJECT);
@@ -76,6 +103,12 @@ function createStore(): TStore {
         return _execute(store[action.type], payload);
     };
 
+    /**
+     * Unregisters the action
+     *
+     * @param {string} actionType
+     * @returns {boolean}
+     */
     const unregister = (actionType: string) => {
         if (typeof actionType !== 'string') {
             throw new TypeError(actionErrors.NOT_STRING);
