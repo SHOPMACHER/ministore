@@ -16,10 +16,10 @@ function createStore(): TStore {
     /**
      * Executes handler promises
      *
-     * @param {Array} listener
-     * @param {Object} payload
-     * @param {number} counter
-     * @returns {*}
+     * @param {Array} listener Array of listener
+     * @param {Object} payload Payload Object for all handlers of the action
+     * @param {number} counter The count of handler iteration
+     * @returns {Promise} Returns the promise resolved
      * @private
      */
     function _execute(listener: Array, payload: Object = {}, counter: number = 0) {
@@ -35,9 +35,9 @@ function createStore(): TStore {
     /**
      * Registers the action
      *
-     * @param {string} actionType
-     * @param {Object} listener
-     * @returns {boolean}
+     * @param {string} actionType The name of the action
+     * @param {Object} listener The listener object
+     * @returns {boolean} Returns true if action is registered
      */
     const register = (actionType: string, listener: TListener) => {
         if (typeof actionType !== 'string') {
@@ -82,8 +82,8 @@ function createStore(): TStore {
     /**
      * Dispatches the action
      *
-     * @param {Object} action
-     * @returns {*}
+     * @param {Object} action The action object for dispatching the type
+     * @returns {Promise} Returns the handler Promise resolved
      */
     const dispatch = (action: TAction) => {
         if (typeof action !== 'object') {
@@ -106,8 +106,8 @@ function createStore(): TStore {
     /**
      * Unregisters the action
      *
-     * @param {string} actionType
-     * @returns {boolean}
+     * @param {string} actionType The action type to delete from store
+     * @returns {boolean} Returns true if the action type is deleted
      */
     const unregister = (actionType: string) => {
         if (typeof actionType !== 'string') {
