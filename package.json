@@ -1,13 +1,13 @@
 {
   "name": "@shopmacher/ministore",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "An async dispatch store",
   "main": "lib/ministore.js",
   "jsnext:main": "lib/ministore.js",
   "module": "lib/ministore.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=development webpack-dev-server --config webpack/dev.js",
-    "build": "cross-env NODE_ENV=production webpack --config webpack/prod.js",
+    "start": "webpack-dev-server --config webpack/dev.js",
+    "build": "webpack --config webpack/prod.js",
     "prepublish": "npm run build",
     "test": "jest",
     "coverage": "jest --coverage"
