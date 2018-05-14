@@ -13,7 +13,7 @@ function createStore(): TStore {
             return Promise.resolve();
         }
 
-        return listener[counter].handler().then(() => {
+        return listener[counter].handler(payload).then(() => {
             return _execute(listener, payload, counter + 1);
         }).catch(() => _execute(listener, payload, counter + 1));
     }
