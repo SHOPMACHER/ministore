@@ -23,8 +23,25 @@
       "html"
     ]
   },
-  "keywords": [],
-  "author": "",
+  "author": {
+    "name": "Dennis Stockhofe",
+    "email": "d.stockhofe@shopmacher.de"
+  },
+  "contributors": [
+    {
+      "name": "Rico Herwig",
+      "email": "r.herwig@shopmacher.de"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SHOPMACHER/ministore"
+  },
+  "keywords": [
+    "shopmacher",
+    "ministore",
+    "javascript"
+  ],
   "license": "MIT",
   "devDependencies": {
     "babel-cli": "^6.26.0",
