@@ -22,7 +22,7 @@ function createStore(): TStore {
      * @returns {Promise} Returns the promise resolved
      * @private
      */
-    function _execute(listener: Array, payload: Object = {}, counter: number = 0) {
+    function _execute(listener: Array, payload: Object, counter: number = 0) {
         if (listener.length === counter) {
             return Promise.resolve();
         }
@@ -52,11 +52,7 @@ function createStore(): TStore {
             throw new TypeError(listenerErrors.NOT_FUNCTION);
         }
 
-        if (!has.call(store, actionType)) {
-            store[actionType] = [];
-        }
-
-        store[actionType].push(listener);
+        store[actionType] = !has.call(store, actionType) ? [listener] : store[actionType].concat(listener);
 
         if (store[actionType].length > 1) {
             store[actionType].sort((a, b) => {
@@ -98,7 +94,7 @@ function createStore(): TStore {
             throw new Error(actionErrors.NOT_FOUND);
         }
 
-        const payload = action.payload ? action.payload : {};
+        const payload = action.payload || {};
 
         return _execute(store[action.type], payload);
     };

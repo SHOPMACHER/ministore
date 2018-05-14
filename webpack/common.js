@@ -7,8 +7,8 @@ module.exports = {
         './index'
     ],
     output: {
-        filename: 'store.js',
-        library: 'store',
+        filename: 'ministore.js',
+        library: 'ministore',
         libraryTarget: 'umd',
         path: join(__dirname, '../lib')
     },
