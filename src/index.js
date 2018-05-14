@@ -1,6 +1,8 @@
 // @flow
 import type { TStore, TListener, TAction } from './types';
 
+import { actionErrors, listenerErrors } from './errors';
+
 const has = Object.prototype.hasOwnProperty;
 
 function createStore(): TStore {
@@ -18,15 +20,15 @@ function createStore(): TStore {
 
     const register = (actionType: string, listener: TListener) => {
         if (typeof actionType !== 'string') {
-            throw new TypeError('Action Type is not a string');
+            throw new TypeError(actionErrors.NOT_STRING);
         }
 
         if (typeof listener !== 'object') {
-            throw new TypeError('No listener is set or is not a object');
+            throw new TypeError(listenerErrors.NOT_OBJECT);
         }
 
         if (typeof listener.handler !== 'function') {
-            throw new TypeError('Handler is not a function');
+            throw new TypeError(listenerErrors.NOT_FUNCTION);
         }
 
         if (!has.call(store, actionType)) {
@@ -58,15 +60,15 @@ function createStore(): TStore {
 
     const dispatch = (action: TAction) => {
         if (typeof action !== 'object') {
-            throw new TypeError('Action is not a object');
+            throw new TypeError(actionErrors.NOT_OBJECT);
         }
 
         if (!action.type) {
-            throw new Error('No Action-Type is set');
+            throw new Error(actionErrors.NOT_SET);
         }
 
         if (!has.call(store, action.type)) {
-            throw new Error('Action-Type not found in store');
+            throw new Error(actionErrors.NOT_FOUND);
         }
 
         const payload = action.payload ? action.payload : {};
@@ -75,8 +77,8 @@ function createStore(): TStore {
     };
 
     const unregister = (actionType: string) => {
-        if (!actionType || typeof actionType !== 'string') {
-            throw new TypeError('Action Type is not a string');
+        if (typeof actionType !== 'string') {
+            throw new TypeError(actionErrors.NOT_STRING);
         }
 
         if (has.call(store, actionType)) {
