@@ -1,7 +1,7 @@
 // @flow
-import type { TStore, TListener, TAction } from './types';
+import type { TStore, TListener, TAction, TState, TStateHandler } from './types';
 
-import { actionErrors, listenerErrors } from './errors';
+import { actionErrors, listenerErrors, stateErrors } from './errors';
 
 const has = Object.prototype.hasOwnProperty;
 
@@ -12,6 +12,10 @@ const has = Object.prototype.hasOwnProperty;
  */
 function createStore(): TStore {
     const store = Object.create(null);
+
+    let currentState =null;
+
+    let onChangeHandler = () => {};
 
     /**
      * Executes handler promises
@@ -117,10 +121,61 @@ function createStore(): TStore {
         return true;
     };
 
+    /**
+     * Sets the on change handler function
+     *
+     * @param {function|Object} initialState
+     * @param {function} handler
+     * @returns {boolean}
+     */
+    function registerState(initialState: TState, handler: TStateHandler) {
+        if (typeof initialState !== 'object') {
+            throw new Error(stateErrors.NOT_OBJECT);
+        }
+
+        currentState = initialState;
+
+        if (typeof handler === 'function') {
+            onChangeHandler = handler;
+        } else {
+            return false;
+        }
+
+        return true;
+    }
+
+    function setState(nextState: TState) {
+        const prevState = {...currentState};
+
+        switch (typeof nextState) {
+            case 'object':
+                currentState = {
+                    ...currentState,
+                    ...nextState
+                };
+                break;
+            default:
+                throw new Error(stateErrors.NOT_OBJECT);
+        }
+
+        if (typeof handler === 'function') {
+            onChangeHandler(prevState);
+        }
+
+        return true;
+    }
+
+    function getState() {
+        return currentState;
+    }
+
     return {
         register,
         unregister,
-        dispatch
+        dispatch,
+        registerState,
+        setState,
+        getState
     };
 }
 
