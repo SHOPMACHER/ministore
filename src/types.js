@@ -13,3 +13,7 @@ export type TAction = {
     type: string,
     payload?: Object
 };
+
+export type TStateHandler = Function<void>;
+
+export type TState = Object;
