@@ -15,3 +15,5 @@ export type TAction = {
 };
 
 export type TStateHandler = Function<void>;
+
+export type TState = Object;
