@@ -9,3 +9,7 @@ export const listenerErrors = {
     NOT_OBJECT: 'No listener is set or is not an object',
     NOT_FUNCTION: 'Handler is not a function'
 };
+
+export const stateErrors = {
+    NOT_OBJECT: 'State is not an object'
+};
