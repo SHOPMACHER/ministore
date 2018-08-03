@@ -13,7 +13,7 @@ const has = Object.prototype.hasOwnProperty;
 function createStore(): TStore {
     const store = Object.create(null);
 
-    let currentState =null;
+    let currentState = null;
 
     let onChangeHandler = () => {};
 
@@ -144,6 +144,12 @@ function createStore(): TStore {
         return true;
     }
 
+    /**
+     * Sets a new state
+     *
+     * @param nextState
+     * @returns {boolean}
+     */
     function setState(nextState: TState) {
         const prevState = {...currentState};
 
@@ -158,13 +164,18 @@ function createStore(): TStore {
                 throw new Error(stateErrors.NOT_OBJECT);
         }
 
-        if (typeof handler === 'function') {
+        if (typeof onChangeHandler === 'function') {
             onChangeHandler(prevState);
         }
 
         return true;
     }
 
+    /**
+     * Returns the current state
+     *
+     * @returns {Object}
+     */
     function getState() {
         return currentState;
     }
